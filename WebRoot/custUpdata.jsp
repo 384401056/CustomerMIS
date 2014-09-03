@@ -9,20 +9,20 @@
 <body style="text-align: center;">
 
 	<h1>客户管理系统--修改客户</h1><hr>
+	
 	<form action="${pageContext.request.contextPath}/servlet/updataCust" method="POST">
 		<input type="hidden" name="id" value="<c:out value="${cust.id}"/>" />
 	<table border="1">
 		<tr>
 			<td>客户姓名：</td>
 			<td align="left"> <input type="text" name="name" style="background-color: silver;" readonly="readonly"
-				value="<c:out value="${cust.name}"/>"/>
-			/> </td>
+				value="<c:out value="${cust.name}"/>"/> </td>
 		</tr>
 		<tr>
 			<td>客户性别：</td>
-			<td align="left"> 
-				<input type="radio" name="gender" value="男"/> 男
-				<input type="radio" name="gender" value="女"/> 女
+			<td align="left">
+				<input type="radio" name="gender" value="男" <c:if test="${cust.gender == '男'}"> checked="checked" </c:if> /> 男
+				<input type="radio" name="gender" value="女" <c:if test="${cust.gender == '女'}"> checked="checked" </c:if> /> 女
 			</td>
 		</tr>
 		<tr>
@@ -43,11 +43,42 @@
 		<tr>
 			<td>爱好：</td>
 			<td align="left">
-				<input type="checkbox" name="preference" value="蓝球"/>蓝球
-				<input type="checkbox" name="preference" value="足球"/>足球
-				<input type="checkbox" name="preference" value="乒乓球"/>乒乓球
-				<input type="checkbox" name="preference" value="网球"/>网球
-				<input type="checkbox" name="preference" value="羽毛球"/>羽毛球
+			
+				<!-- 使用 c:roTokens标签循环迭代，来判断preference中是否包含某个字符。 -->
+				<input type="checkbox" name="preference" value="蓝球" 
+				
+				<c:forTokens items="${cust.preference}" delims="," var="pref">
+					<c:if test="${pref=='蓝球'}">
+						checked="checked"
+					</c:if> 
+				</c:forTokens>
+				/>蓝球
+				
+				<!-- 使用 fn:contains 来查看字符串中是否包含某个字符。 -->
+				<input type="checkbox" name="preference" value="足球"
+					<c:if test="${fn:contains(cust.preference,'足球')}">
+						checked="checked"
+					</c:if> 
+				/>足球
+				
+				<input type="checkbox" name="preference" value="乒乓球"
+					<c:if test="${fn:contains(cust.preference,'乒乓球')}">
+						checked="checked"
+					</c:if> 
+				/>乒乓球
+				
+				
+				<input type="checkbox" name="preference" value="网球"
+					<c:if test="${fn:contains(cust.preference,'网球')}">
+						checked="checked"
+					</c:if> 				
+				/>网球
+				
+				<input type="checkbox" name="preference" value="羽毛球"
+					<c:if test="${fn:contains(cust.preference,'羽毛球')}">
+						checked="checked"
+					</c:if> 	
+				/>羽毛球
 			</td>
 		</tr>
 		
@@ -55,11 +86,21 @@
 			<td>客户类型：</td>
 			<td align="left">
 				<select name="type">
-					<option value="钻石客户">钻石客户</option>
-					<option value="白金客户">白金客户</option>
-					<option value="黄金客户">黄金客户</option>
-					<option value="白银客户">白银客户</option>
-					<option value="一般客户">一般客户</option>
+					<option value="钻石客户" 
+						<c:if test="${cust.type=='钻石客户' }">selected="selected"</c:if>  
+					>钻石客户 </option>
+					<option value="白金客户" 
+						<c:if test="${cust.type=='白金客户' }">selected="selected"</c:if>  
+					>白金客户</option>
+					<option value="黄金客户" 
+						<c:if test="${cust.type=='黄金客户' }">selected="selected"</c:if>  
+					>黄金客户</option>
+					<option value="白银客户" 
+						<c:if test="${cust.type=='白银客户' }">selected="selected"</c:if>  
+					>白银客户</option>
+					<option value="一般客户" 
+						<c:if test="${cust.type=='一般客户' }">selected="selected"</c:if>  
+					>一般客户</option>
 				</select>
 			</td>
 		</tr>

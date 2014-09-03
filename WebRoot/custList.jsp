@@ -33,6 +33,7 @@
 				<td align="left"><c:out value="${cust.type}"/></td>
 				<td align="left"><c:out value="${cust.description}"/></td>
 				<td><a href="${pageContext.request.contextPath}/servlet/CustInfo?id=${cust.id}">修改</a></td>
+				<td><a href="${pageContext.request.contextPath}/servlet/CustDel?id=${cust.id}">删除</a></td>
 			</tr>
 		
 		</c:forEach>

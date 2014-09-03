@@ -32,4 +32,11 @@ public interface CustService{
 	void updataCust(Cust cust);
 
 
+	/**
+	 * 删除客户信息。
+	 * @param custId
+	 */
+	void delCust(String custId);
+
+
 }

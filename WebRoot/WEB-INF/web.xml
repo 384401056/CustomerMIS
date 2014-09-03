@@ -34,6 +34,11 @@
     <servlet-name>CustInfo</servlet-name>
     <servlet-class>com.blueice.web.CustInfo</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CustDel</servlet-name>
+    <servlet-class>com.blueice.web.CustDel</servlet-class>
+  </servlet>
+
 
 
 
@@ -55,6 +60,10 @@
   <servlet-mapping>
     <servlet-name>CustInfo</servlet-name>
     <url-pattern>/servlet/CustInfo</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CustDel</servlet-name>
+    <url-pattern>/servlet/CustDel</url-pattern>
   </servlet-mapping>
   
   

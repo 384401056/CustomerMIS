@@ -39,7 +39,7 @@ public class MySqlDao implements CustDao {
 			
 			String sqlStr = "INSERT INTO customer VALUES(null,?,?,?,?,?,?,?,?)";
 			QueryRunner runner = new QueryRunner(DaoUtils.getDataSource());
-			runner.update(DaoUtils.getConnection(),sqlStr, 
+			runner.update(sqlStr, 
 					customer.getName(),
 					customer.getGender(),
 					customer.getBirthday(),
@@ -105,6 +105,45 @@ public class MySqlDao implements CustDao {
 			QueryRunner runner = new QueryRunner(DaoUtils.getDataSource());
 			return runner.query(sqlStr, new BeanHandler<Cust>(Cust.class), custId);
 		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+
+	
+	@Override
+	public int updataCust(Cust customer) {
+		try {
+			
+			String sqlStr = "UPDATE customer SET gender=?,birthday=?,cellphone=?,email=?,preference=?,type=?,description=? where id=?";
+			QueryRunner runner = new QueryRunner(DaoUtils.getDataSource());
+			return runner.update(sqlStr, 
+					customer.getGender(),
+					customer.getBirthday(),
+					customer.getCellphone(),
+					customer.getEmail(),
+					customer.getPreference(),
+					customer.getType(),
+					customer.getDescription(),
+					customer.getId()
+					);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+	@Override
+	public int delCust(String custId) {
+		try {
+			
+			String sqlStr = "DELETE FROM customer WHERE id=?";
+			QueryRunner runner = new QueryRunner(DaoUtils.getDataSource());
+			return runner.update(sqlStr,custId);
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}

@@ -24,7 +24,6 @@ public class updataCust extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		
 		CustService service = BasicFactory.getFactory().getService();
 		
 		Cust customer = new Cust();
@@ -51,11 +50,12 @@ public class updataCust extends HttpServlet {
 		
 		
 		
-		//2.通过Service保存数据到数据库。
+		//2.通过Service更新数据到数据库。
 		service.updataCust(customer);
+
 		
-		//3.重定向到主页。
-		response.sendRedirect(request.getContextPath()+"/index.jsp");
+		//3.请求转发到/servlet/ListCust页面。
+		request.getRequestDispatcher("/servlet/ListCust").forward(request, response);
 
 	}
 

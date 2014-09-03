@@ -40,7 +40,16 @@ public class CustServiceImp implements CustService {
 
 	@Override
 	public void updataCust(Cust cust) {
-		dao.updataCust(cust);
+		if(dao.updataCust(cust)<0){
+			throw new RuntimeException("更新数据失败。");
+		}
+	}
+
+	@Override
+	public void delCust(String custId) {
+		if(dao.delCust(custId)<0){
+			throw new RuntimeException("删除数据失败。");
+		}
 	}
 
 }

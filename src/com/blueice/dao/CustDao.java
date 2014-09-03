@@ -30,4 +30,18 @@ public interface CustDao {
 	 * @return 客户Bean
 	 */
 	Cust findCustById(String custId);
+
+	
+	/**
+	 * 更新客户数据。
+	 * @param cust 客户Bean
+	 */
+	int updataCust(Cust cust);
+
+	/**
+	 * 删除客户数据。
+	 * @param custId
+	 * @return
+	 */
+	int delCust(String custId);
 }
