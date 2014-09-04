@@ -27,6 +27,7 @@ public class ListCust extends HttpServlet {
 		
 		/*请求转发的地址前要加'/'*/
 		request.getRequestDispatcher("/custList.jsp").forward(request, response);
+		return;
 	}
 
 	

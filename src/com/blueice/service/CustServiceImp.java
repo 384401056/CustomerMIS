@@ -1,9 +1,17 @@
 package com.blueice.service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.dbutils.DbUtils;
+
 import com.blueice.dao.CustDao;
 import com.blueice.domain.Cust;
+import com.blueice.domain.Page;
 import com.blueice.factory.BasicFactory;
+import com.blueice.utils.DaoUtils;
 
 public class CustServiceImp implements CustService {
 
@@ -52,4 +60,69 @@ public class CustServiceImp implements CustService {
 		}
 	}
 
+	@Override
+	public void delCustByBatch(String[] ids) {
+		
+		Connection conn = DaoUtils.getConnection();
+		
+		try {
+			conn.setAutoCommit(false);
+			
+			for(String id:ids){
+				
+				dao.delCustByIdWithTrans(conn,id);
+				
+			}
+			
+			DbUtils.commitAndCloseQuietly(conn);
+
+		} catch (SQLException e) {
+			DbUtils.rollbackAndCloseQuietly(conn);
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	@Override
+	public List<Cust> findCustBycond(Cust cust) {
+		return dao.findCustByCond(cust);
+	}
+
+	@Override
+	public Page pageCust(int thispage, int rowperpage) {
+		
+		Page page = new Page();
+		int countRow = dao.CustCountRow();
+		int countPage = countRow/rowperpage+(countRow%rowperpage==0?0:1);
+		
+		page.setThisPage(thispage);
+		page.setRowperPage(rowperpage);
+		page.setCountRow(countRow);
+		page.setCountPage(countPage);
+		page.setFirstPage(1);
+		page.setLastPage(countPage);
+		page.setPrevPage(thispage==1?thispage:thispage-1);
+		page.setNextPage(thispage==countPage?thispage:thispage+1);
+		
+		
+		page.setList(dao.pageCust((thispage-1)*rowperpage,rowperpage));
+		
+		return page;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,7 +10,9 @@
 
 	<a href="${pageContext.request.contextPath}/addCust.jsp">添加客户</a>
 	
-	<a href="${pageContext.request.contextPath}/servlet/ListCust">查看客户列表</a>
+	<a href="${pageContext.request.contextPath}/servlet/ListCust">客户列表</a>
+	
+	<a href="${pageContext.request.contextPath}/servlet/PageCust?thispage=1">分页客户列表</a>
 	
 </body>
 </html>

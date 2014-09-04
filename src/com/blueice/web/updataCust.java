@@ -56,7 +56,7 @@ public class updataCust extends HttpServlet {
 		
 		//3.请求转发到/servlet/ListCust页面。
 		request.getRequestDispatcher("/servlet/ListCust").forward(request, response);
-
+		return;
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

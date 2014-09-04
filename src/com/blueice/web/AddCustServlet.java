@@ -59,7 +59,7 @@ public class AddCustServlet extends HttpServlet {
 		
 		//3.重定向到主页。
 		response.sendRedirect(request.getContextPath()+"/index.jsp");
-		
+		return;
 		
 
 	}

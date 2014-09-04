@@ -14,10 +14,10 @@ public class TestCust {
 			String sqlStr = "INSERT INTO customer VALUES(null,?,?,?,?,?,?,?,?)";
 			QueryRunner runner = new QueryRunner(DaoUtils.getDataSource());
 			
-			for(int i=0;i<100;i++){
+			for(int i=30;i<40;i++){
 				runner.update(sqlStr, 
 						"name"+i,
-						"男",
+						"女",
 						"1985-05-06",
 						"168985758485",
 						"name"+i+"@qq.com",

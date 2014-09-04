@@ -1,5 +1,6 @@
 package com.blueice.dao;
 
+import java.sql.Connection;
 import java.util.List;
 
 import com.blueice.domain.Cust;
@@ -44,4 +45,57 @@ public interface CustDao {
 	 * @return
 	 */
 	int delCust(String custId);
+
+
+	/**
+	 * 批量删除客户数据。
+	 * @param conn 事务处理的Connection对象。
+	 * @param id 客户id。
+	 */
+	void delCustByIdWithTrans(Connection conn, String id);
+
+	
+	/**
+	 * 根据条件查找客户。
+	 * @param cust
+	 * @return
+	 */
+	List<Cust> findCustByCond(Cust cust);
+
+	/**
+	 * 返回指定哪条记录后多少条信息。。
+	 * @param from 从哪条记录开始
+	 * @param count 显示多少条记录。
+	 * @return
+	 */
+	List<Cust> pageCust(int from, int count);
+
+	
+	/**
+	 * 获取共有多少条客户记录。
+	 * @return
+	 */
+	int CustCountRow();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

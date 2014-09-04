@@ -38,6 +38,21 @@
     <servlet-name>CustDel</servlet-name>
     <servlet-class>com.blueice.web.CustDel</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>BatchDel</servlet-name>
+    <servlet-class>com.blueice.web.BatchDel</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ListCustByCond</servlet-name>
+    <servlet-class>com.blueice.web.ListCustByCond</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PageCust</servlet-name>
+    <servlet-class>com.blueice.web.PageCust</servlet-class>
+  </servlet>
+
+
+
 
 
 
@@ -64,6 +79,18 @@
   <servlet-mapping>
     <servlet-name>CustDel</servlet-name>
     <url-pattern>/servlet/CustDel</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BatchDel</servlet-name>
+    <url-pattern>/servlet/BatchDel</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ListCustByCond</servlet-name>
+    <url-pattern>/servlet/ListCustByCond</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PageCust</servlet-name>
+    <url-pattern>/servlet/PageCust</url-pattern>
   </servlet-mapping>
   
   

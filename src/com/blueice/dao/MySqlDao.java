@@ -1,5 +1,6 @@
 package com.blueice.dao;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,9 +11,11 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.blueice.domain.Cust;
 import com.blueice.utils.DaoUtils;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class MySqlDao implements CustDao {
 
@@ -148,7 +151,89 @@ public class MySqlDao implements CustDao {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
+	@Override
+	public void delCustByIdWithTrans(Connection conn, String id) {
+		try {
+			
+			String sqlStr = "DELETE FROM customer WHERE id=?";
+			QueryRunner runner = new QueryRunner();
+			runner.update(conn, sqlStr, id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+	@Override
+	public List<Cust> findCustByCond(Cust cust) {
+		try {
+			
+			String sqlStr = "SELECT * FROM customer where 1=1";
+			QueryRunner runner = new QueryRunner(DaoUtils.getDataSource());
+			List<Object> listCond = new ArrayList<Object>();
+			
+			if(cust.getName()!=null && !"".equals(cust.getName())){
+				sqlStr+= " and name like ?";
+				listCond.add("%"+cust.getName()+"%");
+			}
+			
+			if(cust.getGender()!=null && !"".equals(cust.getGender())){
+				sqlStr+= " and gender=?";
+				listCond.add(cust.getGender());
+			}
+			
+			if(cust.getType()!=null && !"".equals(cust.getType())){
+				sqlStr+= " and type=?";
+				listCond.add(cust.getType());
+			}
+			
+			if(listCond.size()<=0){
+				return runner.query(sqlStr, new BeanListHandler<Cust>(Cust.class));
+			}else{
+				return runner.query(sqlStr, new BeanListHandler<Cust>(Cust.class),listCond.toArray());
+			}
+			
+			 
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public List<Cust> pageCust(int from, int count) {
+		
+		String sqlStr = "SELECT * FROM customer LIMIT ?,?";
+		try {
+			
+			QueryRunner runner = new QueryRunner(DaoUtils.getDataSource());
+			return runner.query(sqlStr, new BeanListHandler<Cust>(Cust.class),from,count);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+		
+	}
+
+	@Override
+	public int CustCountRow() {
+		String sqlStr = "SELECT COUNT(*) FROM customer";
+		try {
+			
+			QueryRunner runner = new QueryRunner(DaoUtils.getDataSource());
+			return ((Long)runner.query(sqlStr,new ScalarHandler())).intValue();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+
 }
 
 
